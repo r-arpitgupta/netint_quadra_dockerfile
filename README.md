@@ -17,7 +17,7 @@ libxcoder and FFmpeg installed.
 
 3. Start docker targeting quadra NVMe device:
    
-    sudo docker run -it --device=/dev/nvme0 --device=/dev/nvme0n1 ni_quadra_sw /bin/bash
+         sudo docker run -it --device=/dev/nvme0 --device=/dev/nvme0n1 ni_quadra_sw /bin/bash
    
    Please make sure you are targetting the correct Quadra NVMe device and block paths
    If you want to give the container sudo permission to control the device, you can add `--privileged` argurment 
