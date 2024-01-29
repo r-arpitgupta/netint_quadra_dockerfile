@@ -1,9 +1,11 @@
 FROM ubuntu:20.04
 MAINTAINER Steven Zhou
 
-ENV REFRESHED_AT=2023-01-05
-ARG NI_RELEASE_VERSION=4.2.0_RC3
-ARG NI_PACKAGE_NAME="Quadra_SW_V${NI_RELEASE_VERSION}.tar.gz"
+ENV REFRESHED_AT=2024-01-29
+ARG NI_RELEASE_VERSION=4.7.0
+ARG NI_PACKAGE_NAME="Quadra_V${NI_RELEASE_VERSION}.zip"
+ARG NI_PACKAGE_FOLDER="Quadra_V${NI_RELEASE_VERSION}"
+ARG RC=RC4
 #FFMPEG_VERSION can be: n3.4.2, n4.1.3, n4.2.1, n4.3, n4.3.1, n4.4, n5.0
 ARG FFMPEG_VERSION=n5.0
 ARG FFMPEG_PACKAGE_NAME="${FFMPEG_VERSION}.tar.gz"
@@ -13,7 +15,7 @@ SHELL ["/bin/bash", "-c"]
 
 #packages install
 RUN apt-get update
-RUN apt-get install -y pkg-config git gcc make g++ sudo wget uuid-runtime udev
+RUN apt-get install -y pkg-config git gcc make g++ sudo wget uuid-runtime udev unzip
 
 #copy ni release package to docker /NI_Release directory
 COPY $NI_PACKAGE_NAME /NI_Release/
@@ -40,15 +42,16 @@ RUN make install
 
 #SW package install
 WORKDIR /NI_Release
-RUN tar -xzf "$NI_PACKAGE_NAME"
+RUN unzip "$NI_PACKAGE_NAME"
 RUN tar -xzf "$FFMPEG_PACKAGE_NAME"
+
 #ffmpeg install
-RUN cp /NI_Release/Quadra_SW_V"$NI_RELEASE_VERSION"/FFmpeg-"$FFMPEG_VERSION"_netint_v"$NI_RELEASE_VERSION".diff /NI_Release/FFmpeg-"$FFMPEG_VERSION"/
-RUN mv /NI_Release/Quadra_SW_V"$NI_RELEASE_VERSION"/libxcoder /NI_Release
+RUN cp /NI_Release/"$NI_PACKAGE_FOLDER"/Quadra_SW_V"$NI_RELEASE_VERSION"_"$RC"/FFmpeg-"$FFMPEG_VERSION"_netint_v"$NI_RELEASE_VERSION"_"$RC".diff /NI_Release/FFmpeg-"$FFMPEG_VERSION"/
+RUN mv /NI_Release/"$NI_PACKAGE_FOLDER"/Quadra_SW_V"$NI_RELEASE_VERSION"_"$RC"/libxcoder /NI_Release
 WORKDIR /NI_Release/libxcoder
 RUN bash ./build.sh
 WORKDIR /NI_Release/FFmpeg-"$FFMPEG_VERSION"
-RUN patch -t -p 1 < FFmpeg-"$FFMPEG_VERSION"_netint_v"$NI_RELEASE_VERSION".diff
+RUN patch -t -p 1 < FFmpeg-"$FFMPEG_VERSION"_netint_v"$NI_RELEASE_VERSION"_"$RC".diff
 RUN chmod u+x build_ffmpeg.sh
 RUN chmod u+x run_ffmpeg_quadra.sh
 ENV PKG_CONFIG_PATH /usr/local/lib/pkgconfig/

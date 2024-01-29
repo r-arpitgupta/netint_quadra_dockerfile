@@ -11,8 +11,8 @@ libxcoder and FFmpeg installed.
        sudo docker build --tag ni_quadra_sw .
    Two `--build-arg` options are supported in Dockerfile:
 
-       NI_RELEASE_VERSION=4.2.0_RC3    version number of Netint Quadra SW
-                                       release package
+       NI_RELEASE_VERSION=4.2.0        version number of Netint Quadra SDK Release package
+       RC=RC4			       release candiate version of the Software (within Release package)
        FFMPEG_VERSION=n5.0             version number of FFmpeg to use
 
 3. Start docker targeting quadra NVMe device:
