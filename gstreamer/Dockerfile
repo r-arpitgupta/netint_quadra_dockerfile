@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 LABEL "MAINTAINER"="NETINT Support"
 
 ENV REFRESHED_AT=2024-02-13
-ARG NI_RELEASE_VERSION=4.7.0
+ARG NI_RELEASE_VERSION=4.8.2
 ARG NI_PACKAGE_NAME="Quadra_V${NI_RELEASE_VERSION}.zip"
 ARG NI_PACKAGE_FOLDER="Quadra_V${NI_RELEASE_VERSION}"
 ARG RC=RC4
@@ -12,7 +12,7 @@ SHELL ["/bin/bash", "-c"]
 
 #packages install
 RUN apt-get update
-RUN apt-get install -y nvme-cli yasm pkg-config git gcc make g++ sudo wget uuid-runtime udev unzip python3-pip flex bison
+RUN apt-get install -y nvme-cli yasm pkg-config git gcc make g++ sudo wget uuid-runtime udev unzip python3-pip flex bison libpng-dev zlib1g-dev gnutls-bin uuid-dev libglib2.0-dev libxml2 libxml2-dev
 RUN python3 -m pip install meson ninja
 
 #copy ni release package to docker /NI_Release directory
