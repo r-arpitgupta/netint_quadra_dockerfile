@@ -10,7 +10,7 @@ The Dockerfile here can be used to create a docker image with Netint Quadra libx
    Two `--build-arg` options are supported in Dockerfile:
 
        NI_RELEASE_VERSION=4.7.0        version number of Netint Quadra SDK Release package
-       RC=RC4			       release candiate version of the Software (within Release package)
+       GST_VER=1.22.2		       Gstreamer Release
 
 3. Start docker targeting quadra NVMe device:
    
@@ -19,8 +19,6 @@ The Dockerfile here can be used to create a docker image with Netint Quadra libx
    Please make sure you are targetting the correct Quadra NVMe device and block paths
    If you want to give the container sudo permission to control the device, you can add `--privileged` argurment 
    
-4. You ***MUST*** run `init_rsrc` _before_ any gst commands are executed
-
 To export docker image:
 
     sudo docker save ni_quadra_sw | gzip -c > Quadra_Docker.tar.gz
