@@ -1,8 +1,10 @@
 FROM ubuntu:20.04
-LABEL "MAINTAINER"="NETINT Support"
+LABEL org.opencontainers.image.authors="NETINT Technologies" \
+      org.opencontainers.image.description="Docker file example for NETINT VPU using the SDK package"
 
-ENV REFRESHED_AT=2024-03-28 \
-    NI_RELEASE_VERSION=4.8.2 \
+ENV REFRESHED_AT=2025-10-31 \
+    NI_RELEASE_VERSION=5.0.1 \
+    # Supported Gstreamer versions are 1.22.2 and 1.24.4
     GST_VER=1.22.2 \
     NI_INSTALL_DIR="/NI_Release" \
     DEBIAN_FRONTEND=noninteractive
@@ -46,6 +48,6 @@ RUN set -e && ldconfig
 
 # Create entrypoint script to initialize NETINT VPUs on startup
 USER root
-RUN set -e && echo -e '#!/bin/bash\ninit_rsrc\nexec "$@"' > /usr/local/bin/entrypoint.sh \
-    && chmod +x /usr/local/bin/entrypoint.sh
+COPY entrypoint.sh /usr/local/bin/
+RUN set -e && chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
