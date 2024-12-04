@@ -2,15 +2,14 @@ FROM ubuntu:20.04
 LABEL org.opencontainers.image.authors="NETINT Technologies" \
       org.opencontainers.image.description="Docker file example for NETINT VPU using the SDK package"
 
-ENV REFRESHED_AT=2025-10-31 \
-    NI_RELEASE_VERSION=5.0.1 \
+ENV REFRESHED_AT=2025-10-31 
+ARG NI_RELEASE_VERSION=5.0.1 \
     # Supported Gstreamer versions are 1.22.2 and 1.24.4
     GST_VER=1.22.2 \
     NI_INSTALL_DIR="/NI_Release" \
-    DEBIAN_FRONTEND=noninteractive
-
-ARG NI_PACKAGE_NAME="Quadra_V${NI_RELEASE_VERSION}.zip"
-ARG NI_PACKAGE_FOLDER="Quadra_V${NI_RELEASE_VERSION}"
+    DEBIAN_FRONTEND=noninteractive \
+    NI_PACKAGE_NAME="Quadra_V${NI_RELEASE_VERSION}.zip" \
+    NI_PACKAGE_FOLDER="Quadra_V${NI_RELEASE_VERSION}"
 
 SHELL ["/bin/bash", "-c"]
 
@@ -39,12 +38,12 @@ WORKDIR $NI_INSTALL_DIR
 RUN set -e && git clone --depth 1 --branch ${GST_VER} https://gitlab.freedesktop.org/gstreamer/gstreamer.git
 
 # GStreamer patch & install
-RUN set -e && cp $NI_INSTALL_DIR/${NI_PACKAGE_FOLDER}/Quadra_SW_V*/gstreamer-*.diff ${NI_INSTALL_DIR}/gstreamer/
+RUN set -e && cp $NI_INSTALL_DIR/${NI_PACKAGE_FOLDER}/Quadra_SW_V*/gstreamer-${GST_VER}_*.diff ${NI_INSTALL_DIR}/gstreamer/
 WORKDIR ${NI_INSTALL_DIR}/gstreamer
-RUN set -e && patch -t -p 1 < gstreamer-*.diff
-RUN set -e && bash ./build_gstreamer.sh --install
-RUN set -e && export LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu/
-RUN set -e && ldconfig
+RUN set -e && patch -t -p 1 < gstreamer-${GST_VER}_*.diff && \
+    set -e && bash ./build_gstreamer.sh --install && \
+    set -e && export LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu/ && \
+    set -e && ldconfig
 
 # Create entrypoint script to initialize NETINT VPUs on startup
 USER root

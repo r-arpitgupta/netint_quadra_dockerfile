@@ -1,11 +1,11 @@
-# Quadra Dockerfile README
+# Quadra SDK Release Package Dockerfile
+
+Using these Dockerfiles requires access to NETINT SDK package. If you require access to the SDK release package, please contact sales: [sales@netint.com](mailto:sales@netint.com) 
 
 ## Instructions
-The Dockerfile here can be used to create a docker image with Netint Quadra
-libxcoder and FFmpeg installed.
+The Dockerfile here can be used to create a docker image with Netint Quadra libxcoder and FFmpeg installed.
 
-1. Copy the Netint SW release package(eg. Quadra_SW_V5.0.1.zip) to same
-   folder as Dockerfile
+1. Copy the Netint SW release package(eg. Quadra_SW_V5.0.1.zip) to same folder as Dockerfile
 2. Generate docker image:
 
     ```
@@ -14,8 +14,16 @@ libxcoder and FFmpeg installed.
 
    Two `--build-arg` options are supported in Dockerfile:
 
+   **FFmpeg build arguments**
+
        NI_RELEASE_VERSION=5.0.1        version number of Netint Quadra SDK Release package
        FFMPEG_VERSION=n7.0             version number of FFmpeg to use
+
+    **GSTreamer build arguments**
+
+        NI_RELEASE_VERSION=5.0.1        version number of Netint Quadra SDK Release package
+        GST_VER=1.22.2		            Gstreamer Release
+
 
 3. Start docker targeting quadra NVMe device:
    
@@ -23,7 +31,7 @@ libxcoder and FFmpeg installed.
     sudo docker run -it --device=/dev/nvme0 --device=/dev/nvme0n1 ni_quadra_sw /bin/bash
    ```
 
-   Please make sure you are targetting the correct Quadra NVMe device and block paths
+   Please make sure you are targetting the correct Quadra NVMe device and block paths.
    If you want to give the container sudo permission to control the device, you can add `--privileged` argurment 
    
 4. Run the test program:
@@ -46,5 +54,4 @@ gunzip Quadra_Docker.tar.gz && \
 sudo docker load -i Quadra_Docker.tar
 ```
 
-If you need to upgrade Quadra card firmware, use quadra_auto_upgrade.sh in the
-Netint FW release tarball (Quadra_FW_V*.tar.gz)
+If you need to upgrade Quadra card firmware, use quadra_auto_upgrade.sh in the Netint FW release tarball (Quadra_FW_V*.tar.gz)
