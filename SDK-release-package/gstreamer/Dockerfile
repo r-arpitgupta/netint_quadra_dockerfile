@@ -40,13 +40,14 @@ RUN set -e && git clone --depth 1 --branch ${GST_VER} https://gitlab.freedesktop
 # GStreamer patch & install
 RUN set -e && cp $NI_INSTALL_DIR/${NI_PACKAGE_FOLDER}/Quadra_SW_V*/gstreamer-${GST_VER}_*.diff ${NI_INSTALL_DIR}/gstreamer/
 WORKDIR ${NI_INSTALL_DIR}/gstreamer
-RUN set -e && patch -t -p 1 < gstreamer-${GST_VER}_*.diff && \
-    set -e && bash ./build_gstreamer.sh --install && \
-    set -e && export LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu/ && \
-    set -e && ldconfig
+RUN set -e && patch -t -p 1 < gstreamer-*.diff
+RUN set -e && bash ./build_gstreamer.sh --install
+RUN set -e && export LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu/
+RUN set -e && ldconfig
 
 # Create entrypoint script to initialize NETINT VPUs on startup
 USER root
 COPY entrypoint.sh /usr/local/bin/
 RUN set -e && chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
