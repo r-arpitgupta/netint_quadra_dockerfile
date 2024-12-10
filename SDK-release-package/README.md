@@ -1,11 +1,10 @@
 # Quadra SDK Release Package Dockerfile
 
-Using these Dockerfiles requires access to NETINT SDK package. If you require access to the SDK release package, please contact sales: [sales@netint.com](mailto:sales@netint.com) 
-
+Using these Dockerfiles requires access to NETINT SDK package. 
 ## Instructions
 The Dockerfile here can be used to create a docker image with Netint Quadra libxcoder and FFmpeg installed.
 
-1. Copy the Netint SW release package(eg. Quadra_SW_V5.0.1.zip) to same folder as Dockerfile
+1. Copy the Netint SW release package(eg. Quadra_SW_Vx.y.z.zip) to same folder as Dockerfile
 2. Generate docker image:
 
     ```
@@ -16,12 +15,12 @@ The Dockerfile here can be used to create a docker image with Netint Quadra libx
 
    **FFmpeg build arguments**
 
-       NI_RELEASE_VERSION=5.0.1        version number of Netint Quadra SDK Release package
+       NI_RELEASE_VERSION=x.y.z        version number of Netint Quadra SDK Release package
        FFMPEG_VERSION=n7.0             version number of FFmpeg to use
 
     **GSTreamer build arguments**
 
-        NI_RELEASE_VERSION=5.0.1        version number of Netint Quadra SDK Release package
+        NI_RELEASE_VERSION=x.y.z        version number of Netint Quadra SDK Release package
         GST_VER=1.22.2		            Gstreamer Release
 
 
