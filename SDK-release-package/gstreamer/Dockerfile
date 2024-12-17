@@ -1,9 +1,9 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 LABEL org.opencontainers.image.authors="NETINT Technologies" \
       org.opencontainers.image.description="Docker file example for NETINT VPU using the SDK package"
 
 ENV REFRESHED_AT=2025-10-31 
-ARG NI_RELEASE_VERSION=5.1.0 \
+ARG NI_RELEASE_VERSION=5.1.1 \
     # Supported Gstreamer versions are 1.22.2 and 1.24.4
     GST_VER=1.22.2 \
     NI_INSTALL_DIR="/NI_Release" \
