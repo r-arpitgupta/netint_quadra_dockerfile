@@ -3,11 +3,11 @@ LABEL org.opencontainers.image.authors="NETINT Technologies" \
       org.opencontainers.image.description="Docker file example for NETINT VPU using the SDK package"
 
 ENV REFRESHED_AT=2025-10-31 
-ARG NI_RELEASE_VERSION=5.1.1 \
+ARG DEBIAN_FRONTEND=noninteractive \
+    NI_RELEASE_VERSION=5.2.0 \
     # Supported Gstreamer versions are 1.22.2 and 1.24.4
-    GST_VER=1.22.2 \
+    GST_VER=1.24.4 \
     NI_INSTALL_DIR="/NI_Release" \
-    DEBIAN_FRONTEND=noninteractive \
     NI_PACKAGE_NAME="Quadra_V${NI_RELEASE_VERSION}.zip" \
     NI_PACKAGE_FOLDER="Quadra_V${NI_RELEASE_VERSION}"
 
@@ -20,6 +20,7 @@ COPY $NI_PACKAGE_NAME $NI_INSTALL_DIR/
 RUN apt-get update && apt-get install -y \
     nvme-cli yasm pkg-config git gcc make g++ sudo wget uuid-runtime udev unzip python3-pip \
     flex bison libpng-dev zlib1g-dev gnutls-bin uuid-dev libglib2.0-dev libxml2 libxml2-dev \
+    libsrt-openssl-dev graphviz curl libaom-dev libaom3 aom-tools nasm \
     && python3 -m pip install meson ninja \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*

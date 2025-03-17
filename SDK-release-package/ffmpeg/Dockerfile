@@ -4,7 +4,7 @@ LABEL org.opencontainers.image.authors="NETINT Technologies" \
 
 ENV REFRESHED_AT=2025-10-25 
 ARG DEBIAN_FRONTEND=noninteractive \
-    NI_RELEASE_VERSION=5.1.1 \
+    NI_RELEASE_VERSION=5.2.0 \
     NI_PACKAGE_NAME="Quadra_V${NI_RELEASE_VERSION}.zip" \
     NI_PACKAGE_FOLDER="Quadra_V${NI_RELEASE_VERSION}" \
     #FFMPEG_VERSION can be: n3.4.2, n4.1.3, n4.2.1, n4.3, n4.3.1, n4.4, n4.4.2, n5.0, n5.1.2, n6.1, n7.1
