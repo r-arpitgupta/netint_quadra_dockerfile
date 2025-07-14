@@ -2,10 +2,9 @@ FROM ubuntu:22.04
 LABEL org.opencontainers.image.authors="NETINT Technologies" \
       org.opencontainers.image.description="Docker file example for NETINT VPU using the SDK package"
 
-ENV REFRESHED_AT=2025-06-17 
 ARG DEBIAN_FRONTEND=noninteractive \
-    NI_RELEASE_VERSION=5.3.0 \
-    #GST_VERSION can be: 1.22.2, 1.24.4, 1.24.9
+    NI_RELEASE_VERSION=5.3.1 \
+    #Supported GStreamer versions can be found at: https://docs.netint.com/vpu/quadra
     GST_VER=1.24.4 \
     NI_INSTALL_DIR="/NI_Release" \
     NI_PACKAGE_NAME="Quadra_V${NI_RELEASE_VERSION}.zip" \

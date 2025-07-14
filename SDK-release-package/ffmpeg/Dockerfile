@@ -2,12 +2,11 @@ FROM ubuntu:24.04
 LABEL org.opencontainers.image.authors="NETINT Technologies" \
       org.opencontainers.image.description="Docker file example for NETINT VPU using the SDK package"
 
-ENV REFRESHED_AT=2025-06-17 
 ARG DEBIAN_FRONTEND=noninteractive \
-    NI_RELEASE_VERSION=5.3.0 \
+    NI_RELEASE_VERSION=5.3.1 \
     NI_PACKAGE_NAME="Quadra_V${NI_RELEASE_VERSION}.zip" \
     NI_PACKAGE_FOLDER="Quadra_V${NI_RELEASE_VERSION}" \
-    #FFMPEG_VERSION can be: n4.3.1, n5.1.2, n6.1, n7.1
+    #Supported FFmpeg versions can be found at: https://docs.netint.com/vpu/quadra
     FFMPEG_VERSION=n7.1 \
     FFMPEG_PACKAGE_NAME="${FFMPEG_VERSION}.tar.gz" 
 
