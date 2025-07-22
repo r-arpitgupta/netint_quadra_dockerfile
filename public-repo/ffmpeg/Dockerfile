@@ -7,8 +7,10 @@ SHELL ["/bin/bash", "-c"]
 
 ## Install Packages
 RUN apt-get update && \
-    apt-get install -y pkg-config git gcc make g++ sudo wget uuid-runtime udev unzip yasm nvme-cli autoconf libtool
-
+    apt-get install -y pkg-config git gcc make g++ sudo wget uuid-runtime udev unzip yasm nvme-cli autoconf libtool \
+    ninja-build python3 \
+    python3-pip flex bison libpng-dev zlib1g-dev gnutls-bin  \
+    uuid-dev libglib2.0-dev libxml2 libxml2-dev meson
 ## Install libxcoder
 WORKDIR /NI_Release
 RUN git clone https://github.com/NETINT-Technologies/netint_libxcoder.git
