@@ -7,7 +7,7 @@ SHELL ["/bin/bash", "-c"]
 
 ## Install Packages
 RUN apt-get update && \
-    apt-get install -y pkg-config git gcc make g++ sudo wget uuid-runtime udev unzip yasm nvme-cli
+    apt-get install -y pkg-config git gcc make g++ sudo wget uuid-runtime udev unzip yasm nvme-cli autoconf libtool
 
 ## Install libxcoder
 WORKDIR /NI_Release
@@ -17,7 +17,7 @@ RUN bash build.sh
 
 ## Install ffmpeg
 WORKDIR /NI_Release
-RUN git clone https://github.com/NETINT-Technologies/netint_ffmpeg.git
+RUN git clone https://github.com/r-arpitgupta/netint_ffmpeg.git
 WORKDIR /NI_Release/netint_ffmpeg
 ENV PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/
 RUN echo 'y' | bash ./build_ffmpeg.sh --ffprobe --shared && \
